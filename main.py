@@ -5,7 +5,11 @@ from fastapi import FastAPI, Request
 
 app = FastAPI()
 
-PROJECT_ID = os.environ["PROJECT_ID"]
+PROJECT_ID = os.environ.get("e-mail-ai-agent-489109", "local-dev")
+
+@app.get("/health")
+def health():
+    return {"status": "ok"}
 
 @app.post("/pubsub/gmail")
 async def gmail_push(request: Request):
@@ -21,6 +25,9 @@ async def gmail_push(request: Request):
     notification = json.loads(decoded)
 
     history_id = notification["historyId"]
+    
+    if not history_id:
+        return {"status": "missing historyId"}
 
     print("Received Gmail notification:", history_id)
 
