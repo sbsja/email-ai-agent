@@ -1,0 +1,17 @@
+# secrets
+.env
+token.pkl
+client_secret.json
+*.pem
+*.key
+
+# python
+__pycache__/
+*.pyc
+.venv/
+venv/
+.envrc
+
+# OS
+.DS_Store
+Thumbs.db
